@@ -1,0 +1,171 @@
+# Wedding Invitation Platform MVP - Development Prompt
+
+## Project Overview
+Build a comprehensive digital wedding invitation platform called "Own Space" that streamlines guest management and communication for wedding events. This MVP should be production-ready with modern UI/UX and real-time capabilities.
+
+## Core Requirements
+
+### 1. Guest Management System
+- **Upload & Import**: CSV/Excel guest list upload with data validation
+- **AI-Powered Organization**: Automatically categorize guests into:
+  - Wedding Party (Groomsmen & Bridesmaids)
+  - General Guests (Family, Friends, Colleagues, etc.)
+- **Guest Data Structure**:
+  - First Name (required)
+  - Last Name (required) 
+  - Phone Number (required)
+  - Email Address (optional)
+  - Category/Group assignment
+  - RSVP status tracking
+
+### 2. Communication Hub
+- **Multi-Platform Messaging**:
+  - WhatsApp integration (WhatsApp Business API or web.whatsapp.com integration)
+  - Email sending (using services like EmailJS, Nodemailer, or SendGrid)
+  - SMS notifications (Twilio integration)
+- **One-Click Broadcasting**: Send invitations to entire groups or individual guests
+- **Message Templates**: Pre-built invitation templates with customization options
+
+### 3. Real-Time Event Space
+- **Live Updates Dashboard**: Real-time broadcast system for:
+  - RSVP status changes
+  - Venue/location updates
+  - Schedule changes
+  - Last-minute announcements
+- **Guest Notifications**: Automatic push notifications for important updates
+- **Event Timeline**: Live countdown and milestone tracking
+
+### 4. RSVP Management
+- **Digital RSVP Forms**: Responsive forms accessible via unique links
+- **Real-time Tracking**: Live dashboard showing attendance confirmations
+- **Dietary Restrictions**: Optional fields for special requirements
+- **Plus-One Management**: Handle guest additions seamlessly
+
+## Technical Stack Recommendations
+
+### Frontend
+- **Next.js** with App Router for full-stack React development
+- **Tailwind CSS** for responsive design and modern UI
+- **Framer Motion** for smooth animations
+- **React Query** or **SWR** for data fetching and caching
+- **Socket.io-client** for real-time updates
+- **Supabase Auth** for authentication and user management
+
+### Backend
+- **Flask** (Python) with Flask-RESTful for API development
+- **Flask-SocketIO** for real-time communication
+- **PostgreSQL** with SQLAlchemy ORM for data persistence
+- **Supabase** for database hosting, authentication, and real-time subscriptions
+- **Flask-Migrate** for database migrations
+- **Werkzeug** for file uploads
+
+### Authentication & Database
+- **Supabase Auth** for user authentication (signup, login, password reset)
+- **PostgreSQL** hosted on Supabase for scalable data storage
+- **Row Level Security (RLS)** for data protection
+- **Supabase Real-time** for live updates and notifications
+
+
+### AI Integration
+- **OpenAI API** or **Google Gemini** for guest categorization
+- **Natural Language Processing** for contact parsing
+
+### External Services
+- **EmailJS** or **SendGrid** for email delivery
+- **Twilio** for SMS functionality
+- **WhatsApp Business API** for WhatsApp integration
+- **Cloudinary** for image storage and optimization
+
+## Key Features to Implement
+
+### Authentication & User Management
+- Secure user registration and login
+- Wedding event creation and management
+- Multiple wedding support per user account
+
+### AI Guest Categorization
+- Analyze guest names and relationships
+- Auto-suggest categories based on common patterns
+- Manual override capabilities for accuracy
+
+### Responsive Design
+- Mobile-first approach
+- Progressive Web App (PWA) capabilities
+- Offline functionality for basic features
+
+### Analytics Dashboard
+- RSVP response rates
+- Message delivery statistics
+- Guest engagement metrics
+
+## MVP User Flow
+
+1. **User Registration**: Quick signup with email verification
+2. **Create Wedding Event**: Basic event details (date, venue, couple names)
+3. **Upload Guest List**: CSV/Excel import with data validation
+4. **AI Categorization**: Automatic guest grouping with manual adjustments
+5. **Design Invitations**: Choose templates and customize messaging
+6. **Send Invitations**: One-click distribution across all platforms
+7. **Track Responses**: Real-time RSVP monitoring
+8. **Broadcast Updates**: Send live updates to all or specific guest groups
+
+## UI/UX Requirements
+
+### Design Principles
+- Clean, elegant interface suitable for wedding aesthetics
+- Intuitive navigation with minimal learning curve
+- Accessible design (WCAG compliance)
+- Fast loading times and smooth interactions
+
+### Color Scheme
+- Soft, romantic colors (blush, ivory, gold accents)
+- Professional yet warm appearance
+- Dark mode option for user preference
+
+### Key Pages
+- Dashboard (overview of wedding events)
+- Guest Management (list view with filters and search)
+- Communication Center (message composition and sending)
+- RSVP Tracking (real-time status board)
+- Event Broadcasting (live update system)
+
+## Security & Privacy
+- GDPR compliance for data handling
+- Secure guest data encryption
+- Rate limiting for API endpoints
+- Input validation and sanitization
+
+## Performance Requirements
+- Page load times under 3 seconds
+- Real-time updates with minimal latency
+- Efficient handling of guest lists up to 500+ contacts
+- Optimized for mobile devices
+
+## Deployment & Hosting
+- Deploy on **Vercel** or **Netlify** for frontend
+- **Railway** or **Render** for backend hosting
+- **MongoDB Atlas** for database hosting
+- CDN integration for global performance
+
+## Monetization Strategy (Future)
+- Freemium model (basic features free, premium for advanced)
+- Wedding package tiers based on guest count
+- Template marketplace for custom designs
+- Integration with wedding vendor partnerships
+
+## Development Timeline
+- **Week 1**: Project setup, authentication, basic UI
+- **Week 2**: Guest management system, file upload
+- **Week 3**: AI integration, categorization features
+- **Week 4**: Communication hub, platform integrations
+- **Week 5**: Real-time features, RSVP system
+- **Week 6**: Testing, optimization, deployment
+
+## Success Metrics
+- User registration and retention rates
+- Guest list upload success rate
+- Message delivery and open rates
+- RSVP response completion percentage
+- Overall user satisfaction scores
+
+Build this as a modern, scalable web application that couples can immediately use to manage their wedding guest communications. Focus on user experience, reliability, and seamless integration across all communication platforms.
