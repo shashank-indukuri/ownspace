@@ -93,7 +93,7 @@ function CreateWeddingDialog() {
       console.log("Form data:", data);
       const weddingData = {
         ...data,
-        weddingDate: new Date(data.weddingDate),
+        weddingDate: data.weddingDate,
       };
       console.log("Sending wedding data:", weddingData);
       const result = await apiRequest("POST", "/api/weddings", weddingData);
@@ -203,7 +203,7 @@ function CreateWeddingDialog() {
                 <FormItem>
                   <FormLabel>Venue Address</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="123 Wedding Lane, California" {...field} />
+                    <Textarea placeholder="123 Wedding Lane, California" {...field} value={field.value || ""} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -217,7 +217,14 @@ function CreateWeddingDialog() {
                 <FormItem>
                   <FormLabel>Description (Optional)</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="A beautiful celebration of love..." {...field} />
+                    <Textarea 
+                      placeholder="A beautiful celebration of love..." 
+                      value={field.value || ""} 
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      name={field.name}
+                      ref={field.ref}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
