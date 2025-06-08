@@ -1,63 +1,21 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Get Supabase configuration from server
-const getSupabaseConfig = async () => {
-  try {
-    const response = await fetch('/api/supabase-config');
-    if (!response.ok) throw new Error('Failed to get Supabase config');
-    return await response.json();
-  } catch (error) {
-    console.error('Error getting Supabase config:', error);
-    // Fallback to environment variables if available
-    const url = import.meta.env.VITE_SUPABASE_URL;
-    const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-    
-    if (!url || !anonKey) {
-      throw new Error('Supabase configuration not available');
+// For now, use placeholders that will be replaced by the server config
+// This will be updated after the server provides the actual configuration
+export let supabase: any = null;
+
+// Initialize Supabase client with config from server
+export const initSupabase = async () => {
+  if (!supabase) {
+    try {
+      const response = await fetch('/api/supabase-config');
+      const config = await response.json();
+      supabase = createClient(config.url, config.anonKey);
+    } catch (error) {
+      console.error('Failed to initialize Supabase:', error);
     }
-    
-    return { url, anonKey };
   }
-};
-
-// Initialize with temporary client, will be replaced after config is loaded
-let supabaseInstance: any = null;
-
-const initSupabase = async () => {
-  if (!supabaseInstance) {
-    const config = await getSupabaseConfig();
-    supabaseInstance = createClient(config.url, config.anonKey);
-  }
-  return supabaseInstance;
-};
-
-export const supabase = {
-  auth: {
-    getSession: async () => {
-      const client = await initSupabase();
-      return client.auth.getSession();
-    },
-    onAuthStateChange: async (callback: any) => {
-      const client = await initSupabase();
-      return client.auth.onAuthStateChange(callback);
-    },
-    signUp: async (credentials: any) => {
-      const client = await initSupabase();
-      return client.auth.signUp(credentials);
-    },
-    signInWithPassword: async (credentials: any) => {
-      const client = await initSupabase();
-      return client.auth.signInWithPassword(credentials);
-    },
-    signOut: async () => {
-      const client = await initSupabase();
-      return client.auth.signOut();
-    },
-  },
-  from: async (table: string) => {
-    const client = await initSupabase();
-    return client.from(table);
-  },
+  return supabase;
 };
 
 export type Database = {

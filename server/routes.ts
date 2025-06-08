@@ -12,6 +12,11 @@ import { Readable } from "stream";
 const upload = multer({ storage: multer.memoryStorage() });
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Supabase configuration endpoint
+  app.get('/api/supabase-config', (req, res) => {
+    res.json(supabaseConfig);
+  });
+
   // Auth middleware
   await setupAuth(app);
 
