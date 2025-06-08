@@ -90,11 +90,15 @@ function CreateWeddingDialog() {
 
   const createMutation = useMutation({
     mutationFn: async (data: CreateWeddingForm) => {
+      console.log("Form data:", data);
       const weddingData = {
         ...data,
         weddingDate: new Date(data.weddingDate),
       };
-      await apiRequest("POST", "/api/weddings", weddingData);
+      console.log("Sending wedding data:", weddingData);
+      const result = await apiRequest("POST", "/api/weddings", weddingData);
+      console.log("API response:", result);
+      return result;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/weddings"] });
@@ -106,15 +110,18 @@ function CreateWeddingDialog() {
       });
     },
     onError: (error) => {
+      console.error("Wedding creation error:", error);
       toast({
         title: "Error",
-        description: "Failed to create wedding. Please try again.",
+        description: `Failed to create wedding: ${error.message}`,
         variant: "destructive",
       });
     },
   });
 
   const onSubmit = (data: CreateWeddingForm) => {
+    console.log("Form validation passed, submitting:", data);
+    console.log("Form errors:", form.formState.errors);
     createMutation.mutate(data);
   };
 
@@ -315,7 +322,7 @@ export default function Dashboard() {
               </div>
 
               <div className="mb-6">
-                <CountdownTimer targetDate={currentWedding.weddingDate} />
+                <CountdownTimer targetDate={currentWedding.weddingDate.toString()} />
               </div>
 
               <div className="flex flex-wrap gap-3">
