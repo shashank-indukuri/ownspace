@@ -5,7 +5,7 @@ import { setupAuth, isAuthenticated } from "./replitAuth";
 import { insertWeddingSchema, insertGuestSchema, insertGuestCategorySchema } from "@shared/schema";
 import { z } from "zod";
 import multer from "multer";
-import * as csv from "csv-parser";
+import csv from "csv-parser";
 import { Readable } from "stream";
 
 const upload = multer({ storage: multer.memoryStorage() });
@@ -30,12 +30,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/weddings', isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
+      console.log("Creating wedding for user:", userId);
+      console.log("Request body:", req.body);
+      
       const weddingData = insertWeddingSchema.parse({ ...req.body, userId });
+      console.log("Parsed wedding data:", weddingData);
+      
       const wedding = await storage.createWedding(weddingData);
+      console.log("Created wedding:", wedding);
+      
       res.status(201).json(wedding);
     } catch (error) {
       console.error("Error creating wedding:", error);
-      res.status(400).json({ message: "Failed to create wedding" });
+      if (error instanceof Error) {
+        console.error("Error message:", error.message);
+        console.error("Error stack:", error.stack);
+      }
+      res.status(400).json({ 
+        message: "Failed to create wedding",
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
     }
   });
 
@@ -192,7 +206,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       await new Promise((resolve, reject) => {
         stream
           .pipe(csv())
-          .on('data', (data) => guests.push(data))
+          .on('data', (data: any) => guests.push(data))
           .on('end', resolve)
           .on('error', reject);
       });

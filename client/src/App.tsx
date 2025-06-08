@@ -9,6 +9,8 @@ import Landing from "@/pages/landing";
 import Dashboard from "@/pages/dashboard";
 import Guests from "@/pages/guests";
 import RSVPPage from "@/pages/rsvp";
+import Profile from "@/pages/profile";
+import Settings from "@/pages/settings";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -21,6 +23,8 @@ function Router() {
         <>
           <Route path="/" component={Dashboard} />
           <Route path="/guests/:weddingId" component={Guests} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/settings" component={Settings} />
         </>
       )}
       <Route path="/rsvp/:rsvpCode" component={RSVPPage} />
