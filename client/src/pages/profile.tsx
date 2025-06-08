@@ -1,4 +1,5 @@
 import { useAuth } from "@/hooks/useAuth";
+import type { User } from "@shared/schema";
 import { NavigationHeader } from "@/components/navigation-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { User, Mail, Calendar, Edit2, Save, X } from "lucide-react";
+import { User as UserIcon, Mail, Calendar, Edit2, Save, X } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -110,7 +111,7 @@ export default function Profile() {
                     <span>Joined {new Date(user.createdAt!).toLocaleDateString()}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <User className="w-4 h-4" />
+                    <UserIcon className="w-4 h-4" />
                     <span>ID: {user.id}</span>
                   </div>
                 </div>
